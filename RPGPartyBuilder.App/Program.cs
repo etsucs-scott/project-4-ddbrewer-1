@@ -1,10 +1,24 @@
 ﻿using System;
 using RPGPartyBuilder.App.Models;
+using RPGPartyBuilder.App.Services;
 
-Character c1 =  new Character("Dakota", "Warrior", "Tank", 1, 100, 50, 20, 10);
+CharacterTemplateService characterTemplateService = new CharacterTemplateService();
 
-Party party = new Party("My First Party");
-party.Members.Add(c1);
+Console.WriteLine("Available Classes:");
 
-Console.WriteLine(party.PartyName);
-Console.WriteLine(party.Members[0]);
+foreach (string className in characterTemplateService.GetAvailableClasses())
+{
+    Console.WriteLine(className);
+}
+
+Character mage = characterTemplateService.CreateCharacterFromTemplate("Mage", "Luna");
+
+Console.WriteLine();
+Console.WriteLine($"Name: {mage.Name}");
+Console.WriteLine($"Class: {mage.ClassName}");
+Console.WriteLine($"Role: {mage.Role}");
+Console.WriteLine($"Level: {mage.Level}");
+Console.WriteLine($"HP: {mage.HP}");
+Console.WriteLine($"MP: {mage.MP}");
+Console.WriteLine($"Attack: {mage.Attack}");
+Console.WriteLine($"Defense: {mage.Defense}");
