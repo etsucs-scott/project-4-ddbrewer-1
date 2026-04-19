@@ -16,7 +16,7 @@ public class CharacterTemplateService
         {
             {
                 "Warrior",
-                new Character("", "Warrior", "Tank", 1, 100, 30, 50, 30)
+                new Character("", "Warrior", "Tank", 1, 100, 30, 50, 40)
             },
             {
                 "Mage",
@@ -24,11 +24,11 @@ public class CharacterTemplateService
             },
             {
                 "Cleric",
-                new Character("", "Cleric", "Support", 1, 50, 100, 10, 20)
+                new Character("", "Cleric", "Support", 1, 50, 100, 10, 30)
             },
             {
                 "Rogue",
-                new Character("", "Rogue", "DPS", 1, 70, 40, 40, 25)
+                new Character("", "Rogue", "DPS", 1, 70, 35, 40, 25)
             }
         };
     }

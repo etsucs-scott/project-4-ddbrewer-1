@@ -22,4 +22,9 @@ public class Party
         PartyName = partyName;
         Members = new List<Character>();
     }
+
+    public override string ToString()
+    {
+        return $"{PartyName} - {Members.Count}/{MaxSize} members.";
+    }
 }

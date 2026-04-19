@@ -2,23 +2,24 @@
 using RPGPartyBuilder.App.Models;
 using RPGPartyBuilder.App.Services;
 
-CharacterTemplateService characterTemplateService = new CharacterTemplateService();
+IPartyFileService fileService = new JsonPartyFileService();
+PartyManager manager = new PartyManager(fileService);
 
-Console.WriteLine("Available Classes:");
+Party party = new Party("Test Party");
 
-foreach (string className in characterTemplateService.GetAvailableClasses())
+Character c1 = new Character("Character1", "Warrior", "Tank", 100, 30, 50, 50, 30);
+Character c2 = new Character("Character2", "Mage", "DPS", 100, 30, 50, 50, 30);
+
+manager.AddCharacterToParty(party, c1);
+manager.AddCharacterToParty(party, c2);
+
+manager.SaveParty(party, "party.json");
+
+Party loadedParty = fileService.LoadParty("party.json");
+
+Console.WriteLine($"Party: {loadedParty}");
+
+foreach (Character member in loadedParty.Members)
 {
-    Console.WriteLine(className);
+    Console.WriteLine(member);
 }
-
-Character mage = characterTemplateService.CreateCharacterFromTemplate("Mage", "Luna");
-
-Console.WriteLine();
-Console.WriteLine($"Name: {mage.Name}");
-Console.WriteLine($"Class: {mage.ClassName}");
-Console.WriteLine($"Role: {mage.Role}");
-Console.WriteLine($"Level: {mage.Level}");
-Console.WriteLine($"HP: {mage.HP}");
-Console.WriteLine($"MP: {mage.MP}");
-Console.WriteLine($"Attack: {mage.Attack}");
-Console.WriteLine($"Defense: {mage.Defense}");

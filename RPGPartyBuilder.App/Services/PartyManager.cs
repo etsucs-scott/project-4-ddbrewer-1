@@ -94,4 +94,21 @@ public class PartyManager
         
         return party.Members.Average(c => c.Level);
     }
+    
+    private readonly IPartyFileService _partyFileService;
+
+    public PartyManager(IPartyFileService partyFileService)
+    {
+        _partyFileService = partyFileService;
+    }
+
+    public void SaveParty(Party party, string path)
+    {
+        _partyFileService.SaveParty(party, path);
+    }
+    
+    public void LoadParty(string path)
+    {
+        _partyFileService.LoadParty(path);
+    }
 }
