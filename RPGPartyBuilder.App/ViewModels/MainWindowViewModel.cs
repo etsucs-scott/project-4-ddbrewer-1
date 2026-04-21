@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using RPGPartyBuilder.App.Models;
 using RPGPartyBuilder.App.Services;
