@@ -19,4 +19,12 @@ public partial class MainWindow : Window
             vm.AddCharacter();
         }
     }
+
+    private void RemoveCharacterButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel vm)
+        {
+            vm.RemoveCharacter();
+        }
+    }
 }

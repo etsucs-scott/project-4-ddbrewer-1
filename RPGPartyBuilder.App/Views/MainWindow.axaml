@@ -10,68 +10,61 @@
         Width="800"
         Height="500">
         
-        <Grid RowDefinitions="Auto, Auto, Auto, *, Auto"
-                ColumnDefinitions="*, *"
-                Margin="20">
-            
-            <TextBlock Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       Text="RPG Party Builder"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Margin="0, 0, 0, 20"/>
-            
-            <StackPanel Grid.Row="1"
-                        Grid.Column="0"
-                        Orientation="Horizontal"
-                        Spacing="10"
-                        Margin="0, 0, 0, 15">
-                
-                <TextBlock Text="Character Name:"
-                           VerticalAlignment="Center"/>
-                    
-                    <TextBox Width="180"
-                               Text="{Binding CharacterNameInput}"/>
-                    
-                    <TextBlock Text="Class:"
-                               VerticalAlignment="Center"/>
-                
-                <ComboBox Width="140"
-                          ItemsSource="{Binding AvailableClasses}"
-                          SelectedItem="{Binding SelectedClassName}"/>
-                
-                <Button Content="Add Character"
-                        Click="AddCharacterButton_Click"/>
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto"
+          Margin="20"
+          RowSpacing="12">
+
+        <TextBlock Grid.Row="0"
+                   Text="RPG Party Builder"
+                   FontSize="24"
+                   FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="10">
+
+            <TextBlock Text="Character Name:"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Width="180"
+                     Text="{Binding CharacterNameInput}"/>
+
+            <TextBlock Text="Class:"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox Width="140"
+                      ItemsSource="{Binding AvailableClasses}"
+                      SelectedItem="{Binding SelectedClassName}"/>
+
+            <Button Content="Add Character"
+                    Click="AddCharacterButton_Click"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"/>
+
+        <Border Grid.Row="3"
+                BorderThickness="1"
+                Padding="10">
+
+            <StackPanel Spacing="10">
+                <TextBlock Text="Party Members"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+
+                <ListBox ItemsSource="{Binding PartyMembers}"
+                         SelectedItem="{Binding SelectedCharacter}"
+                         Height="220"/>
+
+                <Button Content="Remove Selected"
+                        Click="RemoveCharacterButton_Click"
+                        Width="150"
+                        HorizontalAlignment="Left"/>
             </StackPanel>
-            
-            <TextBlock Grid.Row="2"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       Text="{Binding StatusMessage}"
-                       Margin="0, 0, 0, 15"/>
-            
-            <Border Grid.Row="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    BorderThickness="1"
-                    Padding="10">
-                
-                <StackPanel Spacing="10">
-                    <TextBlock Text="Party Members"
-                               FontSize="18"
-                               FontWeight="Bold"/>
-                    
-                    <ListBox ItemsSource="{Binding PartyMembers}"
-                             Height="250"/>
-                </StackPanel>
-                </Border>
-            
-            <TextBlock Grid.Row="4"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       Text="{Binding CurrentParty.PartyName}"
-                       Margin="0, 15, 0, 0"
-                       FontWeight="Bold"/>
-            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="4"
+                   Text="{Binding CurrentParty.PartyName}"
+                   FontWeight="Bold"/>
+    </Grid>
 </Window>

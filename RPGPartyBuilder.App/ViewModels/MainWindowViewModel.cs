@@ -6,7 +6,7 @@ using RPGPartyBuilder.App.Services;
 
 namespace RPGPartyBuilder.App.ViewModels;
 
-public class MainWindowViewModel
+public class MainWindowViewModel : ViewModelBase
 {
     private readonly PartyManager _partyManager;
     private readonly CharacterTemplateService _characterTemplateService;
@@ -17,11 +17,51 @@ public class MainWindowViewModel
 
     public List<string> AvailableClasses { get; set; }
 
-    public string CharacterNameInput { get; set; } = string.Empty;
+    private string _characterNameInput = string.Empty;
+    public string CharacterNameInput
+    {
+        get => _characterNameInput;
+        set
+        {
+            _characterNameInput = value;
+            OnPropertyChanged();
+        }
+    }
 
-    public string SelectedClassName { get; set; } = string.Empty;
+    private string _selectedClassName = string.Empty;
 
-    public string StatusMessage { get; set; } = string.Empty;
+    public string SelectedClassName
+    {
+        get => _selectedClassName;
+        set
+        {
+            _selectedClassName = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string _statusMessage = string.Empty;
+
+    public string StatusMessage
+    {
+        get => _statusMessage;
+        set
+        {
+            _statusMessage = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private Character? _selectedCharacter;
+    public Character? SelectedCharacter
+    {
+        get => _selectedCharacter;
+        set
+        {
+            _selectedCharacter = value;
+            OnPropertyChanged();
+        }
+    }
 
     public MainWindowViewModel()
     {
@@ -38,7 +78,7 @@ public class MainWindowViewModel
             SelectedClassName = AvailableClasses[0];
         }
     }
-
+    
     public void AddCharacter()
     {
         try
@@ -62,6 +102,31 @@ public class MainWindowViewModel
         catch (Exception ex)
         {
             StatusMessage = ex.Message;
+        }
+    }
+    
+    public void RemoveCharacter()
+    {
+        if (SelectedCharacter == null)
+        {
+            StatusMessage = "No character selected.";
+            return;
+        }
+        
+        Character characterToRemove = SelectedCharacter;
+        string characterName = characterToRemove.Name;
+        
+        bool removed = _partyManager.RemoveCharacterFromParty(CurrentParty, characterName);
+
+        if (removed)
+        {
+            PartyMembers.Remove(SelectedCharacter);
+            StatusMessage = $"{characterName} removed from the party.";
+            SelectedCharacter = null;
+        }
+        else
+        {
+            StatusMessage = "Could not remove character.";
         }
     }
 }
