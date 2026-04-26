@@ -59,6 +59,22 @@ public class PartyManager
         return true;
     }
 
+    public bool LevelUpCharacter(Character character)
+    {
+        if (character == null) throw new ArgumentNullException(nameof(character));
+
+        if (character.Level >= 99) return false;
+        
+        // Simple stat scaling, to keep it readable.
+        character.Level+=1;
+        character.HP += 10;
+        character.MP += 10;
+        character.Attack += 5;
+        character.Defense += 3;
+        
+        return true;
+    }
+
     public int GetPartyHP(Party party)
     {
         if (party == null)

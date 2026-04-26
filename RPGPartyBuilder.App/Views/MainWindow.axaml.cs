@@ -28,19 +28,27 @@ public partial class MainWindow : Window
         }
     }
 
+    private void LevelUpButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel vm)
+        {
+            vm.LevelUpSelectedCharacter();
+        }
+    }
+
     private void SavePartyButton_Click(object? sender, RoutedEventArgs e)
     {
         if (DataContext is MainWindowViewModel vm)
-            {
+        {
             vm.SaveParty();
-            }
+        }
     }
 
     private void LoadPartyButton_Click(object? sender, RoutedEventArgs e)
     {
         if (DataContext is MainWindowViewModel vm)
-            {
+        {
             vm.LoadParty();
-            }
+        }
     }
 }

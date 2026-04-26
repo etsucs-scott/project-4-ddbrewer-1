@@ -74,6 +74,11 @@
                             Width = "150"
                             HorizontalAlignment = "Left"/>
                 
+                    <Button Content = "Level Up"
+                            Click = "LevelUpButton_Click"
+                            Width = "150"
+                            HorizontalAlignment = "Left"/>
+                
                 <StackPanel Orientation = "Horizontal"
                             Spacing = "10">
                     

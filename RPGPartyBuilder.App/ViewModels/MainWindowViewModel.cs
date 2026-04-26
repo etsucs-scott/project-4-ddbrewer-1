@@ -144,6 +144,35 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    public void LevelUpSelectedCharacter()
+    {
+        if (SelectedCharacter == null)
+        {
+            StatusMessage = "No character selected.";
+            return;
+        }
+        
+        Character characterToLevelUp = SelectedCharacter;
+        int index = PartyMembers.IndexOf(characterToLevelUp);
+
+        if (index >= 0)
+        {
+            PartyMembers.RemoveAt(index);
+            PartyMembers.Insert(index, characterToLevelUp);
+            SelectedCharacter = characterToLevelUp;
+        }
+
+        _partyManager.LevelUpCharacter(SelectedCharacter);
+        
+        StatusMessage = $"{SelectedCharacter.Name} leveled up!";
+        
+        // Refreshes stats.
+        OnPropertyChanged(nameof(TotalHp));
+        OnPropertyChanged(nameof(TotalMp));
+        OnPropertyChanged(nameof(AvgPartyLevel));
+        OnPropertyChanged(nameof(PartyMembers));
+    }
+
     public void SaveParty()
     {
         try
