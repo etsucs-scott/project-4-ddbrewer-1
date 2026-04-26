@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using RPGPartyBuilder.App.Models;
 using RPGPartyBuilder.App.Services;
+using System.Linq;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace RPGPartyBuilder.App.ViewModels;
 
@@ -12,6 +14,10 @@ public class MainWindowViewModel : ViewModelBase
     private readonly CharacterTemplateService _characterTemplateService;
 
     public Party CurrentParty { get; set; }
+    
+    public int TotalHp => PartyMembers.Sum(character => character.HP);
+    public int TotalMp => PartyMembers.Sum(character => character.MP);
+    public double AvgPartyLevel => _partyManager.GetPartyAvgLevel(CurrentParty);
 
     public ObservableCollection<Character> PartyMembers { get; set; }
 
@@ -87,12 +93,16 @@ public class MainWindowViewModel : ViewModelBase
                 _characterTemplateService.CreateCharacterFromTemplate(SelectedClassName, CharacterNameInput);
 
             bool wasAdded = _partyManager.AddCharacterToParty(CurrentParty, newCharacter);
-
+            
             if (wasAdded)
             {
                 PartyMembers.Add(newCharacter);
                 StatusMessage = $"{newCharacter.Name} added to the party.";
                 CharacterNameInput = string.Empty;
+                
+                OnPropertyChanged(nameof(TotalHp));
+                OnPropertyChanged(nameof(TotalMp));
+                OnPropertyChanged(nameof(AvgPartyLevel));
             }
             else
             {
@@ -123,6 +133,10 @@ public class MainWindowViewModel : ViewModelBase
             PartyMembers.Remove(SelectedCharacter);
             StatusMessage = $"{characterName} removed from the party.";
             SelectedCharacter = null;
+            
+            OnPropertyChanged(nameof(TotalHp));
+            OnPropertyChanged(nameof(TotalMp));
+            OnPropertyChanged(nameof(AvgPartyLevel));
         }
         else
         {
@@ -156,6 +170,10 @@ public class MainWindowViewModel : ViewModelBase
             {
                 PartyMembers.Add(character);
             }
+            
+            OnPropertyChanged(nameof(TotalHp));
+            OnPropertyChanged(nameof(TotalMp));
+            OnPropertyChanged(nameof(AvgPartyLevel));
             
             StatusMessage = "Party loaded successfully.";
         }

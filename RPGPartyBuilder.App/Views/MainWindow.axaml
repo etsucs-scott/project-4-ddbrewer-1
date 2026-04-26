@@ -55,11 +55,24 @@
                 <ListBox ItemsSource = "{Binding PartyMembers}"
                          SelectedItem = "{Binding SelectedCharacter}"
                          Height = "220"/>
-
-                <Button Content = "Remove Selected"
-                        Click = "RemoveCharacterButton_Click"
-                        Width = "150"
-                        HorizontalAlignment = "Left"/>
+                
+                <StackPanel Orientation = "Horizontal"
+                            Spacing="20">
+                
+                    <TextBlock Text = "{Binding TotalHp, StringFormat = 'Total HP: {0}'}"
+                               FontWeight = "Bold"/>
+                        
+                    <TextBlock Text = "{Binding TotalMp, StringFormat = 'Total MP: {0}'}"
+                               FontWeight = "Bold"/>
+                    
+                    <TextBlock Text = "{Binding AvgPartyLevel, StringFormat = 'Average Party Level: {0:F1}'}"
+                               FontWeight= "Bold"/>
+                </StackPanel>
+                
+                    <Button Content = "Remove Selected"
+                            Click = "RemoveCharacterButton_Click"
+                            Width = "150"
+                            HorizontalAlignment = "Left"/>
                 
                 <StackPanel Orientation = "Horizontal"
                             Spacing = "10">
