@@ -106,8 +106,8 @@ public class PartyManager
         _partyFileService.SaveParty(party, path);
     }
     
-    public void LoadParty(string path)
+    public Party LoadParty(string path)
     {
-        _partyFileService.LoadParty(path);
+        return _partyFileService.LoadParty(path);
     }
 }

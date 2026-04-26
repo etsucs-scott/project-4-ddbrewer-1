@@ -27,4 +27,20 @@ public partial class MainWindow : Window
             vm.RemoveCharacter();
         }
     }
+
+    private void SavePartyButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel vm)
+            {
+            vm.SaveParty();
+            }
+    }
+
+    private void LoadPartyButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel vm)
+            {
+            vm.LoadParty();
+            }
+    }
 }

@@ -129,4 +129,39 @@ public class MainWindowViewModel : ViewModelBase
             StatusMessage = "Could not remove character.";
         }
     }
+
+    public void SaveParty()
+    {
+        try
+        {
+            _partyManager.SaveParty(CurrentParty, "party.json");
+            StatusMessage = "Party saved successfully.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Save failed:  {ex.Message}";
+        }
+    }
+
+    public void LoadParty()
+    {
+        try
+        {
+            CurrentParty = _partyManager.LoadParty("party.json");
+            OnPropertyChanged(nameof(CurrentParty));
+
+            PartyMembers.Clear();
+
+            foreach (Character character in CurrentParty.Members)
+            {
+                PartyMembers.Add(character);
+            }
+            
+            StatusMessage = "Party loaded successfully.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Load failed:  {ex.Message}";
+        }
+    }
 }

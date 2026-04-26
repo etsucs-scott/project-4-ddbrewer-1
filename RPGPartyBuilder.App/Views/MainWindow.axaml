@@ -1,70 +1,78 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="using:RPGPartyBuilder.App.ViewModels"
-        mc:Ignorable="d"
-        x:Class="RPGPartyBuilder.App.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Title="RPG Party Builder"
-        Width="800"
-        Height="500">
+<Window xmlns = "https://github.com/avaloniaui"
+        xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm = "using:RPGPartyBuilder.App.ViewModels"
+        mc:Ignorable = "d"
+        x:Class = "RPGPartyBuilder.App.Views.MainWindow"
+        x:DataType = "vm:MainWindowViewModel"
+        Title = "RPG Party Builder"
+        Width = "800"
+        Height = "500">
         
-    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto"
-          Margin="20"
-          RowSpacing="12">
+    <Grid RowDefinitions = "Auto,Auto,Auto,*"
+          Margin = "20"
+          RowSpacing = "12">
 
-        <TextBlock Grid.Row="0"
-                   Text="RPG Party Builder"
-                   FontSize="24"
-                   FontWeight="Bold"/>
+        <TextBlock Grid.Row = "0"
+                   Text = "RPG Party Builder"
+                   FontSize = "24"
+                   FontWeight = "Bold"/>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    Spacing="10">
+        <StackPanel Grid.Row = "1"
+                    Orientation = "Horizontal"
+                    Spacing = "10">
 
-            <TextBlock Text="Character Name:"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text = "Character Name:"
+                       VerticalAlignment = "Center"/>
 
-            <TextBox Width="180"
-                     Text="{Binding CharacterNameInput}"/>
+            <TextBox Width = "180"
+                     Text = "{Binding CharacterNameInput}"/> 
 
-            <TextBlock Text="Class:"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text = "Class:"
+                       VerticalAlignment = "Center"/>
 
-            <ComboBox Width="140"
-                      ItemsSource="{Binding AvailableClasses}"
-                      SelectedItem="{Binding SelectedClassName}"/>
+            <ComboBox Width = "140"
+                      ItemsSource = "{Binding AvailableClasses}"
+                      SelectedItem = "{Binding SelectedClassName}"/>
 
-            <Button Content="Add Character"
-                    Click="AddCharacterButton_Click"/>
+            <Button Content = "Add Character"
+                    Click = "AddCharacterButton_Click"/>
         </StackPanel>
 
-        <TextBlock Grid.Row="2"
-                   Text="{Binding StatusMessage}"/>
+        <TextBlock Grid.Row = "2"
+                   Text = "{Binding StatusMessage}"/>
 
-        <Border Grid.Row="3"
-                BorderThickness="1"
-                Padding="10">
+        <Border Grid.Row = "3"
+                BorderThickness = "1"
+                Padding = "10">
 
-            <StackPanel Spacing="10">
-                <TextBlock Text="Party Members"
-                           FontSize="18"
-                           FontWeight="Bold"/>
+            <StackPanel Spacing = "10">
+                <TextBlock Text = "Party Members"
+                           FontSize = "18"
+                           FontWeight = "Bold"/>
 
-                <ListBox ItemsSource="{Binding PartyMembers}"
-                         SelectedItem="{Binding SelectedCharacter}"
-                         Height="220"/>
+                <ListBox ItemsSource = "{Binding PartyMembers}"
+                         SelectedItem = "{Binding SelectedCharacter}"
+                         Height = "220"/>
 
-                <Button Content="Remove Selected"
-                        Click="RemoveCharacterButton_Click"
-                        Width="150"
-                        HorizontalAlignment="Left"/>
+                <Button Content = "Remove Selected"
+                        Click = "RemoveCharacterButton_Click"
+                        Width = "150"
+                        HorizontalAlignment = "Left"/>
+                
+                <StackPanel Orientation = "Horizontal"
+                            Spacing = "10">
+                    
+                    <Button Content = "Save Party"
+                            Click = "SavePartyButton_Click"
+                            Width = "120"/>
+                    
+                    <Button Content = "Load Party"
+                            Click = "LoadPartyButton_Click"
+                            Width = "120"/>
+                </StackPanel>
             </StackPanel>
         </Border>
-
-        <TextBlock Grid.Row="4"
-                   Text="{Binding CurrentParty.PartyName}"
-                   FontWeight="Bold"/>
     </Grid>
 </Window>
