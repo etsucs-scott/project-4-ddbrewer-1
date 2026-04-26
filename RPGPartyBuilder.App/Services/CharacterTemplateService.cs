@@ -40,24 +40,14 @@ public class CharacterTemplateService
 
     public Character CreateCharacterFromTemplate(string className, string characterName)
     {
-        if (string.IsNullOrWhiteSpace(className))
-        {
-            throw new ArgumentException("Class name cannot be empty.", nameof(className));
-        }
+        if (string.IsNullOrWhiteSpace(className)) throw new ArgumentException("Class name cannot be empty.", nameof(className));
 
-        if (string.IsNullOrWhiteSpace(characterName))
-        {
-            throw new ArgumentException("Character name cannot be empty.", nameof(characterName));
-        }
+        if (string.IsNullOrWhiteSpace(characterName)) throw new ArgumentException("Character name cannot be empty.", nameof(characterName));
 
-        if (!_templates.ContainsKey(className))
-        {
-            throw new ArgumentException("That class does not exist.", nameof(className));
-        }
+        if (!_templates.ContainsKey(className)) throw new ArgumentException("That class does not exist.", nameof(className));
         
         Character template = _templates[className];
 
-        return new Character(characterName, template.ClassName, template.Role, template.Level, template.HP, template.MP,
-            template.Attack, template.Defense);
+        return new Character(characterName, template.ClassName, template.Role, template.Level, template.HP, template.MP, template.Attack, template.Defense);
     }
 }

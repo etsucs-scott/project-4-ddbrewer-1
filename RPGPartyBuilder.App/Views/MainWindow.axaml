@@ -89,6 +89,10 @@
                     <Button Content = "Load Party"
                             Click = "LoadPartyButton_Click"
                             Width = "120"/>
+                    
+                    <Button Content = "Sort by Level"
+                            Click = "SortByLevelButton_Click"
+                            Width = "120"/>
                 </StackPanel>
             </StackPanel>
         </Border>

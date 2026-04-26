@@ -154,6 +154,14 @@ public class MainWindowViewModel : ViewModelBase
         
         Character characterToLevelUp = SelectedCharacter;
         int index = PartyMembers.IndexOf(characterToLevelUp);
+        
+        bool leveledUp = _partyManager.LevelUpCharacter(characterToLevelUp);
+
+        if (!leveledUp)
+        {
+            StatusMessage = $"{characterToLevelUp.Name} is already max level (99)!";
+            return;
+        }
 
         if (index >= 0)
         {
@@ -161,8 +169,6 @@ public class MainWindowViewModel : ViewModelBase
             PartyMembers.Insert(index, characterToLevelUp);
             SelectedCharacter = characterToLevelUp;
         }
-
-        _partyManager.LevelUpCharacter(SelectedCharacter);
         
         StatusMessage = $"{SelectedCharacter.Name} leveled up!";
         
@@ -173,12 +179,26 @@ public class MainWindowViewModel : ViewModelBase
         OnPropertyChanged(nameof(PartyMembers));
     }
 
+    public void SortPartyByLevel()
+    {
+        _partyManager.SortPartyByLevel(CurrentParty);
+        
+        PartyMembers.Clear();
+
+        foreach (Character character in CurrentParty.Members)
+        {
+            PartyMembers.Add(character);
+        }
+        
+        StatusMessage = ("Party sorted by level.");
+    }
+
     public void SaveParty()
     {
         try
         {
             _partyManager.SaveParty(CurrentParty, "party.json");
-            StatusMessage = "Party saved successfully.";
+            StatusMessage = "Party saved to party.json;.";
         }
         catch (Exception ex)
         {
@@ -204,7 +224,7 @@ public class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(TotalMp));
             OnPropertyChanged(nameof(AvgPartyLevel));
             
-            StatusMessage = "Party loaded successfully.";
+            StatusMessage = "Party loaded from party.json.";
         }
         catch (Exception ex)
         {

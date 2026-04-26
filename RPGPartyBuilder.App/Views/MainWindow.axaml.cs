@@ -51,4 +51,12 @@ public partial class MainWindow : Window
             vm.LoadParty();
         }
     }
+    
+    private void SortByLevelButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel vm)
+        {
+            vm.SortPartyByLevel();
+        }
+    }
 }
