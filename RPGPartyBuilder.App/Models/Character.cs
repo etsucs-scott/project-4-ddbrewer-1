@@ -35,6 +35,6 @@ public class Character
 
     public override string ToString()
     {
-        return $"{Name} ({ClassName}) - Lv {Level} -  HP {HP} - MP {MP} - Attack {Attack}  - Defense {Defense}";
+        return $"{Name} ({ClassName}) - Lv {Level} -  HP {HP} - MP {MP} - Attack {Attack}  - Defense {Defense} ";
     }
 }
