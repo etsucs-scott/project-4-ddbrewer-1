@@ -2,7 +2,8 @@ using System;
 
 namespace RPGPartyBuilder.App.Models;
 
-public class Character
+// Represents a single RPG Character with stats and role information.
+public class Character 
 {
     public string Name { get; set; }
     public string ClassName { get; set; }
@@ -14,6 +15,7 @@ public class Character
     public int Attack { get; set; }
     public int Defense { get; set; }
 
+    // Default constructor is needed for JSON deserialization.
     public Character()
     {
         Name = string.Empty;
@@ -21,6 +23,7 @@ public class Character
         Role = string.Empty;
     }
 
+    // Creates a fully initialized Character.
     public Character(string name, string className, string role, int level, int hp, int mp, int attack, int defense)
     {
         Name = name;
@@ -33,6 +36,7 @@ public class Character
         Defense = defense;
     }
 
+    // Used by the UI to display Character information in the list.
     public override string ToString()
     {
         return $"{Name} ({ClassName}) - Lv {Level} -  HP {HP} - MP {MP} - Attack {Attack}  - Defense {Defense} ";

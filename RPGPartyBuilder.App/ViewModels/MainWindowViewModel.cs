@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using RPGPartyBuilder.App.Models;
 using RPGPartyBuilder.App.Services;
 using System.Linq;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace RPGPartyBuilder.App.ViewModels;
 
+// Connects the application UI to the Character and Party services.
 public class MainWindowViewModel : ViewModelBase
 {
     private readonly PartyManager _partyManager;
@@ -15,10 +15,12 @@ public class MainWindowViewModel : ViewModelBase
 
     public Party CurrentParty { get; set; }
     
+    // Calculated Party stats are displayed in the UI.
     public int TotalHp => PartyMembers.Sum(character => character.HP);
     public int TotalMp => PartyMembers.Sum(character => character.MP);
     public double AvgPartyLevel => _partyManager.GetPartyAvgLevel(CurrentParty);
 
+    // Used because ObservableCollections update the UI when Characters are added or removed.
     public ObservableCollection<Character> PartyMembers { get; set; }
 
     public List<string> AvailableClasses { get; set; }
@@ -69,6 +71,7 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    // Sets up services, creates the Party, and loads Character Class options.
     public MainWindowViewModel()
     {
         IPartyFileService fileService = new JsonPartyFileService();
@@ -85,12 +88,12 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
     
+    // Creates a Character from the Template Service and adds them to the Party.
     public void AddCharacter()
     {
         try
         {
-            Character newCharacter =
-                _characterTemplateService.CreateCharacterFromTemplate(SelectedClassName, CharacterNameInput);
+            Character newCharacter = _characterTemplateService.CreateCharacterFromTemplate(SelectedClassName, CharacterNameInput);
 
             bool wasAdded = _partyManager.AddCharacterToParty(CurrentParty, newCharacter);
             
@@ -100,9 +103,7 @@ public class MainWindowViewModel : ViewModelBase
                 StatusMessage = $"{newCharacter.Name} added to the party.";
                 CharacterNameInput = string.Empty;
                 
-                OnPropertyChanged(nameof(TotalHp));
-                OnPropertyChanged(nameof(TotalMp));
-                OnPropertyChanged(nameof(AvgPartyLevel));
+                RefreshPartyStats();
             }
             else
             {
@@ -115,6 +116,7 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
     
+    // Removes the currently selected Character from the Party.
     public void RemoveCharacter()
     {
         if (SelectedCharacter == null)
@@ -134,9 +136,7 @@ public class MainWindowViewModel : ViewModelBase
             StatusMessage = $"{characterName} removed from the party.";
             SelectedCharacter = null;
             
-            OnPropertyChanged(nameof(TotalHp));
-            OnPropertyChanged(nameof(TotalMp));
-            OnPropertyChanged(nameof(AvgPartyLevel));
+            RefreshPartyStats();
         }
         else
         {
@@ -144,6 +144,7 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    // Levels up the selected Character and refreshes the UI list display.
     public void LevelUpSelectedCharacter()
     {
         if (SelectedCharacter == null)
@@ -163,6 +164,7 @@ public class MainWindowViewModel : ViewModelBase
             return;
         }
 
+        // Remove and reinserts so the ListBox updates the changed Character stats.
         if (index >= 0)
         {
             PartyMembers.RemoveAt(index);
@@ -172,13 +174,10 @@ public class MainWindowViewModel : ViewModelBase
         
         StatusMessage = $"{SelectedCharacter.Name} leveled up!";
         
-        // Refreshes stats.
-        OnPropertyChanged(nameof(TotalHp));
-        OnPropertyChanged(nameof(TotalMp));
-        OnPropertyChanged(nameof(AvgPartyLevel));
-        OnPropertyChanged(nameof(PartyMembers));
+        RefreshPartyStats();
     }
 
+    // Sorts Characters by level and rebuilds the UI collection.
     public void SortPartyByLevel()
     {
         _partyManager.SortPartyByLevel(CurrentParty);
@@ -193,19 +192,21 @@ public class MainWindowViewModel : ViewModelBase
         StatusMessage = ("Party sorted by level.");
     }
 
+    // Saves the current Party to a JSON file.
     public void SaveParty()
     {
         try
         {
             _partyManager.SaveParty(CurrentParty, "party.json");
-            StatusMessage = "Party saved to party.json;.";
+            StatusMessage = "Party saved to party.json.";
         }
         catch (Exception ex)
         {
-            StatusMessage = $"Save failed:  {ex.Message}";
+            StatusMessage = $"Save failed: {ex.Message}";
         }
     }
 
+    // Loads the saved Party from a JSON file and refreshes the UI list.
     public void LoadParty()
     {
         try
@@ -220,15 +221,21 @@ public class MainWindowViewModel : ViewModelBase
                 PartyMembers.Add(character);
             }
             
-            OnPropertyChanged(nameof(TotalHp));
-            OnPropertyChanged(nameof(TotalMp));
-            OnPropertyChanged(nameof(AvgPartyLevel));
+            RefreshPartyStats();
             
             StatusMessage = "Party loaded from party.json.";
         }
         catch (Exception ex)
         {
-            StatusMessage = $"Load failed:  {ex.Message}";
+            StatusMessage = $"Load failed: {ex.Message}";
         }
+    }
+    
+    // Notifies the UI when calculated Party stats are changed.
+    private void RefreshPartyStats()
+    {
+        OnPropertyChanged(nameof(TotalHp));
+        OnPropertyChanged(nameof(TotalMp));
+        OnPropertyChanged(nameof(AvgPartyLevel));
     }
 }

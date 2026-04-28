@@ -6,8 +6,10 @@ using RPGPartyBuilder.App.Models;
 
 namespace RPGPartyBuilder.App.Services;
 
+// Provides predefined Character templates and creates Characters from them.
 public class CharacterTemplateService
 {
+    // Stores base templates for each class (with case-insensitive keys).
     private readonly Dictionary<string, Character> _templates;
     
     public CharacterTemplateService()
@@ -33,13 +35,16 @@ public class CharacterTemplateService
         };
     }
     
+    // Returns the list of available classes for UI selection (drop-down menu).
     public List<string> GetAvailableClasses()
     {
         return _templates.Keys.ToList();
     }
 
+    // Creates a Character from the Template and assigns them the user's provided name.
     public Character CreateCharacterFromTemplate(string className, string characterName)
     {
+        // Input validation to prevent bad Character creation.
         if (string.IsNullOrWhiteSpace(className)) throw new ArgumentException("Class name cannot be empty.", nameof(className));
 
         if (string.IsNullOrWhiteSpace(characterName)) throw new ArgumentException("Character name cannot be empty.", nameof(characterName));
@@ -48,6 +53,7 @@ public class CharacterTemplateService
         
         Character template = _templates[className];
 
+        // Copies the Template stats into a new Character instance.
         return new Character(characterName, template.ClassName, template.Role, template.Level, template.HP, template.MP, template.Attack, template.Defense);
     }
 }
