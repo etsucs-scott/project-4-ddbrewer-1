@@ -1,43 +1,48 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/qJo95Bxr)
-# CSCI 1260 — Project
-
-## Project Instructions
-All project requirements, grading criteria, and submission details are provided on **D2L**.  
-Refer to D2L as the *authoritative source* for this assignment.
-
-This repository is intentionally minimal. You are responsible for:
-- Creating the solution and projects
-- Designing the class structure
-- Implementing the required functionality
+# CSCI 1260 — Final Project (#4) — Full System Integration
 
 ---
 
-## Getting Started (CLI)
+# RPG Party Builder Application (C# and Avalonia)
 
-You may use **Visual Studio**, **VS Code**, or the **terminal**.
+## Project Overview:
 
-### Create a solution
-```bash
-dotnet new sln -n ProjectName
-```
+This project is a C# and Avalonia-based desktop application that allows you to create a character with a name,
+a selection of 1 from 4 different classes, and it uses a template service to create a "ready made" level 1 character with
+those selections and gives them preset stats.
 
-### Create a project (example: console app)
-```bash
-dotnet new console -n ProjectName.App
-```
+## Features:
 
-### Add the project to the solution
-```bash
-dotnet sln add ProjectName.App
-```
+- Create and manage a party of 4 RPG characters.
+- Add / Remove characters from a party.
+- Level up characters (to a maximum level of 99).
+- View total HP, MP, and average party levels.
+- Save a load a party using JSON file IO.
 
-### Build and run
-```bash
-dotnet build
-dotnet run --project ProjectName.App
-```
+## Technologies Used:
+- C#
+- Avalonia UI
+- xUnit for Unit Testing
 
-## Notes
-- Commit early and commit often.
-- Your repository history is part of your submission.
-- Update this README with build/run instructions specific to your project.
+## How to Build and Run:
+
+1. Open the terminal
+2. Build the project: dotnet build
+3. Run the program: dotnet run --project RPGPartyBuilder.App
+
+## How to Run Unit Tests:
+
+1. Open the terminal
+2. Run test test: dotnet test
+
+---
+
+## External Code or Resources Used:
+
+- Official AvaloniaUI.net website: https://avaloniaui.net
+- AvaloniaUI.net documentation: https://docs.avaloniaui.net/docs/welcome?utm_source=avaloniaui&utm_medium=referral&utm_content=nav
+
+---
+
+## Submission Note:
+
+This project was completed as part of the CSCI 1260 course and is included in the classroom GitHub repo as required.
