@@ -18,7 +18,7 @@ public class RPGPartyManagerTests
     {
         PartyManager partyManager = CreatePartyManager();
         Party party = new Party("Test Party");
-        Character character = new Character("Dakota", "Warrior", "Tank", 1, 100, 30, 50, 40);
+        Character character = new Character("Character1", "Warrior", "Tank", 1, 100, 30, 50, 40);
         
         bool result = partyManager.AddCharacterToParty(party, character);
         
