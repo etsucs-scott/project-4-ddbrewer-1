@@ -20,7 +20,7 @@ public class MainWindowViewModel : ViewModelBase
     public int TotalMp => PartyMembers.Sum(character => character.MP);
     public double AvgPartyLevel => _partyManager.GetPartyAvgLevel(CurrentParty);
 
-    // Used because ObservableCollections update the UI when Characters are added or removed.
+    // Used because ObservableCollection updates the UI when Characters are added or removed.
     public ObservableCollection<Character> PartyMembers { get; set; }
 
     public List<string> AvailableClasses { get; set; }

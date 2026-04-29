@@ -12,7 +12,7 @@ public class Party
     
     public int MaxSize { get; set; } = 4;
 
-    //Default constructor for initialization/serialization.
+    // Default constructor needed for JSON initialization/serialization.
     public Party()
     {
         PartyName = string.Empty;

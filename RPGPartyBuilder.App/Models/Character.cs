@@ -15,7 +15,7 @@ public class Character
     public int Attack { get; set; }
     public int Defense { get; set; }
 
-    // Default constructor is needed for JSON deserialization.
+    // Default constructor needed for JSON deserialization.
     public Character()
     {
         Name = string.Empty;
