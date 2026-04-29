@@ -32,7 +32,7 @@ those selections and gives them preset stats.
 ## How to Run Unit Tests:
 
 1. Open the terminal
-2. Run test test: dotnet test
+2. Run test using: dotnet test
 
 ---
 
